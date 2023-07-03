@@ -2,7 +2,10 @@ package com.cyphase.eventmanagement.entity;
 
 import com.cyphase.eventmanagement.utils.Constant;
 import com.cyphase.eventmanagement.utils.Encrypt;
+import com.cyphase.eventmanagement.utils.Utils;
 import jakarta.persistence.*;
+
+import java.util.StringJoiner;
 
 @Entity(name = "SystemUser")
 @Table(name = "systemuser")
@@ -74,5 +77,30 @@ public class SystemUser {
 
     public static String[] getRoleValues() {
         return ROLE_VALUES;
+    }
+
+    //Extra Methods
+    public String getName() {
+        String name = "";
+        if (person == null) {
+            return name;
+        }
+        String firstName = person.getFirstName();
+        String lastName = person.getLastName();
+        String middleName = person.getMiddleName();
+
+        if (!Utils.isWhite(firstName)) {
+            name += firstName;
+        }
+
+        if (!Utils.isWhite(middleName)) {
+            name += " " + middleName;
+        }
+
+
+        if (!Utils.isWhite(lastName)) {
+            name += " " + lastName;
+        }
+        return name;
     }
 }
